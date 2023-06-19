@@ -28,13 +28,26 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
     {
       switch(self_board[i][j])
       {
-        case 1: selfpiece = selfpiece + 1;
-        case 2: selfpiece = selfpiece + 10;
-        case 3: selfpiece = selfpiece + 25;
-        case 4: selfpiece = selfpiece + 50;
-        case 5: selfpiece = selfpiece + 100;
-        case 6: selfpiece = selfpiece + INT_MAX;
-        default: selfpiece = selfpiece + 0;
+        case 1: 
+          selfpiece = selfpiece + 1;
+          break;
+        case 2: 
+          selfpiece = selfpiece + 2;
+          break;
+        case 3: 
+          selfpiece = selfpiece + 3;
+          break;
+        case 4: 
+          selfpiece = selfpiece + 4;
+          break;
+        case 5: 
+          selfpiece = selfpiece + 100;
+          break;
+        case 6: 
+          selfpiece = selfpiece + 1000;
+          break;
+        default:
+          break;
       }
     }
   }
@@ -45,18 +58,98 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
     {
       switch(oppn_board[i][j])
       {
-        case 1: oppnpiece = oppnpiece + 1;
-        case 2: oppnpiece = oppnpiece + 10;
-        case 3: oppnpiece = oppnpiece + 25;
-        case 4: oppnpiece = oppnpiece + 50;
-        case 5: oppnpiece = oppnpiece + 100;
-        case 6: oppnpiece = oppnpiece + INT_MAX;
-        default: oppnpiece = oppnpiece + 0;
+        case 1: 
+          oppnpiece = oppnpiece + 1;
+          break;
+        case 2: 
+          oppnpiece = oppnpiece + 2;
+          break;
+        case 3: 
+          oppnpiece = oppnpiece + 3;
+          break;
+        case 4: 
+          oppnpiece = oppnpiece + 4;
+          break;
+        case 5: 
+          oppnpiece = oppnpiece + 100;
+          break;
+        case 6: 
+          oppnpiece = oppnpiece + 1000;
+          break;
+        default: 
+          break;
       }
     }
   }
 
-  return heuristic = selfpiece - oppnpiece;
+  /*
+  int eatoppnpiece = 0;
+  
+  if(!this->legal_actions.size()) this->get_legal_actions();
+  for(auto move:this->legal_actions)
+  {
+    Point to = move.second;
+    switch (oppn_board[to.first][to.second])
+    {
+      case 1: 
+        eatoppnpiece = eatoppnpiece + 1;
+        break;
+      case 2: 
+        eatoppnpiece = eatoppnpiece + 10;
+        break;
+      case 3: 
+        eatoppnpiece = eatoppnpiece + 25;
+        break;
+      case 4: 
+        eatoppnpiece = eatoppnpiece + 50;
+        break;
+      case 5: 
+        eatoppnpiece = eatoppnpiece + 100;
+        break;
+      case 6: 
+        eatoppnpiece = eatoppnpiece + 1000;
+        break;
+      default:
+        eatoppnpiece = eatoppnpiece + 0;
+        break;
+    }
+  } 
+  
+  int eatselfpiece = 0;
+
+  State* nextoppnstate = this->next_state(Move(Point{0,0}, Point{0,0}));
+  nextoppnstate->player = 1-this->player;
+  if(!nextoppnstate->legal_actions.size()) nextoppnstate->get_legal_actions();
+  for(auto move: nextoppnstate->legal_actions)
+  {
+    Point to = move.second;
+    switch (self_board[to.first][to.second])
+    {
+      case 1: 
+        eatselfpiece = eatselfpiece + 1;
+        break;
+      case 2: 
+        eatselfpiece = eatselfpiece + 10;
+        break;
+      case 3: 
+        eatselfpiece = eatselfpiece + 25;
+        break;
+      case 4: 
+        eatselfpiece = eatselfpiece + 50;
+        break;
+      case 5: 
+        eatselfpiece = eatselfpiece + 100;
+        break;
+      case 6: 
+        eatselfpiece = eatselfpiece + 1000;
+        break;
+      default:
+        break;
+    }
+  }
+  */
+  //return heuristic = (selfpiece - oppnpiece) + (eatoppnpiece - eatselfpiece);
+  return heuristic = (selfpiece - oppnpiece);
 }
 
 
