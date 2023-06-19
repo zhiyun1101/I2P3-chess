@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstdint>
+#include <map>
 
 #include "./state.hpp"
 #include "../config.hpp"
@@ -13,7 +14,47 @@
  */
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  return 0;
+  // 0=empty, 1=pawn, 2=rook, 3=knight, 4=bishop, 5=queen, 6=king
+  int heuristic = 0;
+
+  auto self_board = this->board.board[0];
+  auto oppn_board = this->board.board[1];
+  for(int i=0; i<BOARD_H; i+=1)
+  {
+    for(int j=0; j<BOARD_W; j+=1)
+    {
+      switch(self_board[i][j])
+      {
+        case 1: heuristic += 1;
+        case 2: heuristic += 10;
+        case 3: heuristic += 25;
+        case 4: heuristic += 50;
+        case 5: heuristic += 100;
+        case 6: heuristic += INT_MAX;
+        default: heuristic += 0;
+      }
+    }
+  }
+  /*
+  for(int i=0; i<BOARD_H; i+=1)
+  {
+    for(int j=0; j<BOARD_W; j+=1)
+    {
+      switch(nowpiece=self_board[i][j])
+      {
+        case 1: 
+          if(i==BOARD_H-1 || i==0) heuristic+=10;
+        case 2: heuristic+=10;
+        case 3: heuristic+=25;
+        case 4: heuristic+=50;
+        case 5: heuristic+=100;
+        case 6: heuristic+=INT_MAX;
+        default: heuristic+=0;
+      }
+    }
+  }
+  */
+  return heuristic;
 }
 
 
@@ -28,14 +69,16 @@ State* State::next_state(Move move){
   Point from = move.first, to = move.second;
   
   int8_t moved = next.board[this->player][from.first][from.second];
-  //promotion for pawn
+  // promotion for pawn : 
+  // pawn到底線換成queen
   if(moved == 1 && (to.first==BOARD_H-1 || to.first==0)){
     moved = 5;
   }
+  // 吃掉敵方的棋子，將board設為empty
   if(next.board[1-this->player][to.first][to.second]){
     next.board[1-this->player][to.first][to.second] = 0;
   }
-  
+  // 棋子移動：原本所在位置設為empty，移到目的地
   next.board[this->player][from.first][from.second] = 0;
   next.board[this->player][to.first][to.second] = moved;
   
