@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cstdint>
 #include <map>
+#include <climits>
 
 #include "./state.hpp"
 #include "../config.hpp"
@@ -12,49 +13,50 @@
  * 
  * @return int 
  */
-int State::evaluate(){
+int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
+{
   // [TODO] design your own evaluation function
   // 0=empty, 1=pawn, 2=rook, 3=knight, 4=bishop, 5=queen, 6=king
   int heuristic = 0;
-
-  auto self_board = this->board.board[0];
-  auto oppn_board = this->board.board[1];
+  int selfpiece = 0;
+  int oppnpiece = 0;
+  auto self_board = this->board.board[selfplayer];
+  auto oppn_board = this->board.board[1-selfplayer];
   for(int i=0; i<BOARD_H; i+=1)
   {
     for(int j=0; j<BOARD_W; j+=1)
     {
       switch(self_board[i][j])
       {
-        case 1: heuristic += 1;
-        case 2: heuristic += 10;
-        case 3: heuristic += 25;
-        case 4: heuristic += 50;
-        case 5: heuristic += 100;
-        case 6: heuristic += INT_MAX;
-        default: heuristic += 0;
+        case 1: selfpiece = selfpiece + 1;
+        case 2: selfpiece = selfpiece + 10;
+        case 3: selfpiece = selfpiece + 25;
+        case 4: selfpiece = selfpiece + 50;
+        case 5: selfpiece = selfpiece + 100;
+        case 6: selfpiece = selfpiece + INT_MAX;
+        default: selfpiece = selfpiece + 0;
       }
     }
   }
-  /*
+
   for(int i=0; i<BOARD_H; i+=1)
   {
     for(int j=0; j<BOARD_W; j+=1)
     {
-      switch(nowpiece=self_board[i][j])
+      switch(oppn_board[i][j])
       {
-        case 1: 
-          if(i==BOARD_H-1 || i==0) heuristic+=10;
-        case 2: heuristic+=10;
-        case 3: heuristic+=25;
-        case 4: heuristic+=50;
-        case 5: heuristic+=100;
-        case 6: heuristic+=INT_MAX;
-        default: heuristic+=0;
+        case 1: oppnpiece = oppnpiece + 1;
+        case 2: oppnpiece = oppnpiece + 10;
+        case 3: oppnpiece = oppnpiece + 25;
+        case 4: oppnpiece = oppnpiece + 50;
+        case 5: oppnpiece = oppnpiece + 100;
+        case 6: oppnpiece = oppnpiece + INT_MAX;
+        default: oppnpiece = oppnpiece + 0;
       }
     }
   }
-  */
-  return heuristic;
+
+  return heuristic = selfpiece - oppnpiece;
 }
 
 
