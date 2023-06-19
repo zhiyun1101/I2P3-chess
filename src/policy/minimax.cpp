@@ -21,22 +21,22 @@ enum minimaxop
 
 int minimax(State* root, int depth, int op, int selfplayer)
 {
-    if(!root->legal_actions.size()) root->get_legal_actions();
     if((root->player == selfplayer) && (root->game_state == WIN))
     {
        return INT_MAX; 
     }
     if((root->player != selfplayer) && (root->game_state == WIN))
     {
-       return INT_MIN; 
+       return -INT_MAX; 
     }
-    if(depth == 0)
+    if(!root->legal_actions.size()) root->get_legal_actions();
+    if(depth == 0 || !root->legal_actions.size())
     {
-        return root->evaluate(0);
+        return root->evaluate(selfplayer);
     }
     if(op == MAXimize)
     {
-        int value = INT_MIN;
+        int value = -INT_MAX; 
         for(auto move: root->legal_actions)
         {   
             value = std::max(value, minimax(root->next_state(move), depth-1, MINimize, selfplayer));
@@ -45,7 +45,7 @@ int minimax(State* root, int depth, int op, int selfplayer)
     }
     else //op == MINimize
     {
-        int value = INT_MAX;
+        int value = INT_MAX; 
         for(auto move: root->legal_actions)
         {
             value = std::min(value, minimax(root->next_state(move), depth-1, MAXimize, selfplayer));
@@ -57,7 +57,9 @@ int minimax(State* root, int depth, int op, int selfplayer)
 Move Minimax::get_move(State* state, int depth)
 {
     Move minimaxmove;
-    int rootvalue = INT_MIN;
+    int rootvalue = -INT_MAX; 
+
+    if(!state->legal_actions.size()) state->get_legal_actions();
 
     for(auto move: state->legal_actions)
     {   
