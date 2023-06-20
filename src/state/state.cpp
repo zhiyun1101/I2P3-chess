@@ -32,13 +32,13 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
           selfpiece = selfpiece + 1;
           break;
         case 2: 
-          selfpiece = selfpiece + 2;
+          selfpiece = selfpiece + 5;
           break;
         case 3: 
-          selfpiece = selfpiece + 3;
+          selfpiece = selfpiece + 5;
           break;
         case 4: 
-          selfpiece = selfpiece + 4;
+          selfpiece = selfpiece + 5;
           break;
         case 5: 
           selfpiece = selfpiece + 100;
@@ -62,13 +62,13 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
           oppnpiece = oppnpiece + 1;
           break;
         case 2: 
-          oppnpiece = oppnpiece + 2;
+          oppnpiece = oppnpiece + 5;
           break;
         case 3: 
-          oppnpiece = oppnpiece + 3;
+          oppnpiece = oppnpiece + 5;
           break;
         case 4: 
-          oppnpiece = oppnpiece + 4;
+          oppnpiece = oppnpiece + 5;
           break;
         case 5: 
           oppnpiece = oppnpiece + 100;
@@ -95,26 +95,25 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
         eatoppnpiece = eatoppnpiece + 1;
         break;
       case 2: 
-        eatoppnpiece = eatoppnpiece + 10;
+        eatoppnpiece = eatoppnpiece + 2;
         break;
       case 3: 
-        eatoppnpiece = eatoppnpiece + 25;
+        eatoppnpiece = eatoppnpiece + 3;
         break;
       case 4: 
-        eatoppnpiece = eatoppnpiece + 50;
+        eatoppnpiece = eatoppnpiece + 4;
         break;
       case 5: 
-        eatoppnpiece = eatoppnpiece + 100;
+        eatoppnpiece = eatoppnpiece + 5;
         break;
       case 6: 
-        eatoppnpiece = eatoppnpiece + 1000;
         break;
       default:
-        eatoppnpiece = eatoppnpiece + 0;
         break;
     }
   } 
-  
+  */
+  /*
   int eatselfpiece = 0;
 
   State* nextoppnstate = this->next_state(Move(Point{0,0}, Point{0,0}));
