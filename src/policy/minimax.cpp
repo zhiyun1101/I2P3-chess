@@ -21,15 +21,17 @@ enum minimaxop
 
 int minimax(State* root, int depth, int op, int selfplayer)
 {
-    if((root->player == selfplayer) && (root->game_state == WIN))
+    if(root->player == selfplayer && root->game_state == WIN)
     {
-       return INT_MAX; 
+        return INT_MAX; 
     }
-    if((root->player != selfplayer) && (root->game_state == WIN))
+    if(root->player != selfplayer && root->game_state == WIN)
     {
-       return -INT_MAX; 
+        return -INT_MAX; 
     }
+
     if(!root->legal_actions.size()) root->get_legal_actions();
+    
     if(depth == 0 || !root->legal_actions.size())
     {
         return root->evaluate(selfplayer);
