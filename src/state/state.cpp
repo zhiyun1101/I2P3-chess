@@ -32,13 +32,13 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
           selfpiece = selfpiece + 1;
           break;
         case 2: 
-          selfpiece = selfpiece + 5;
+          selfpiece = selfpiece + 2;
           break;
         case 3: 
-          selfpiece = selfpiece + 5;
+          selfpiece = selfpiece + 3;
           break;
         case 4: 
-          selfpiece = selfpiece + 5;
+          selfpiece = selfpiece + 4;
           break;
         case 5: 
           selfpiece = selfpiece + 100;
@@ -62,13 +62,13 @@ int State::evaluate(int selfplayer) //selfplayer:以selfplayer方計算hvalue
           oppnpiece = oppnpiece + 1;
           break;
         case 2: 
-          oppnpiece = oppnpiece + 5;
+          oppnpiece = oppnpiece + 2;
           break;
         case 3: 
-          oppnpiece = oppnpiece + 5;
+          oppnpiece = oppnpiece + 3;
           break;
         case 4: 
-          oppnpiece = oppnpiece + 5;
+          oppnpiece = oppnpiece + 4;
           break;
         case 5: 
           oppnpiece = oppnpiece + 100;
