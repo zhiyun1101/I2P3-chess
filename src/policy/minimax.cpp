@@ -23,11 +23,11 @@ int minimax(State* root, int depth, int op, int selfplayer)
 {
     if(root->player == selfplayer && root->game_state == WIN)
     {
-        return INT_MAX; 
+        return INT_MAX-1; 
     }
     if(root->player != selfplayer && root->game_state == WIN)
     {
-        return -INT_MAX; 
+        return -INT_MAX+1; 
     }
 
     if(!root->legal_actions.size()) root->get_legal_actions();
@@ -38,7 +38,7 @@ int minimax(State* root, int depth, int op, int selfplayer)
     }
     if(op == MAXimize)
     {
-        int value = -INT_MAX; 
+        int value = -INT_MAX+1; 
         for(auto move: root->legal_actions)
         {   
             value = std::max(value, minimax(root->next_state(move), depth-1, MINimize, selfplayer));
@@ -47,7 +47,7 @@ int minimax(State* root, int depth, int op, int selfplayer)
     }
     else //op == MINimize
     {
-        int value = INT_MAX; 
+        int value = INT_MAX-1; 
         for(auto move: root->legal_actions)
         {
             value = std::min(value, minimax(root->next_state(move), depth-1, MAXimize, selfplayer));
