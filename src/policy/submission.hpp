@@ -13,3 +13,5 @@ class Submission
     public:
     static Move get_move(State *state, int depth);
 };
+
+int submission(State* root, int depth, int alpha, int beta, int op, int selfplayer);
