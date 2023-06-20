@@ -23,11 +23,11 @@ int alphabeta(State* root, int depth, int alpha, int beta, int op, int selfplaye
 {
     if(root->player == selfplayer && root->game_state == WIN)
     {
-        return INT_MAX; 
+        return INT_MAX-1; 
     }
     if(root->player != selfplayer && root->game_state == WIN)
     {
-        return INT_MIN; 
+        return -INT_MAX+1; 
     }
 
     if(!root->legal_actions.size()) root->get_legal_actions();
@@ -35,7 +35,7 @@ int alphabeta(State* root, int depth, int alpha, int beta, int op, int selfplaye
     if(!root->legal_actions.size()) return root->evaluate(selfplayer);
     if(op == MAXimize)
     {
-        int value = INT_MIN;
+        int value = -INT_MAX+1;
         for(auto move: root->legal_actions)
         {   
             value = std::max(value, alphabeta(root->next_state(move), depth-1, alpha, beta, MINimize, selfplayer));
@@ -46,7 +46,7 @@ int alphabeta(State* root, int depth, int alpha, int beta, int op, int selfplaye
     }
     else //op == MINimize
     {
-        int value = INT_MAX;
+        int value = INT_MAX-1;
         for(auto move: root->legal_actions)
         {
             value = std::min(value, alphabeta(root->next_state(move), depth-1, alpha, beta, MAXimize, selfplayer));
@@ -61,7 +61,7 @@ Move Alphabeta::get_move(State* state, int depth)
 {
     Move alphabetamove;
     int rootalpha = -INT_MAX;
-    int rootbeta = INT_MAX; 
+    //int rootbeta = INT_MAX; 
 
     if(!state->legal_actions.size()) state->get_legal_actions();
 
@@ -73,7 +73,7 @@ Move Alphabeta::get_move(State* state, int depth)
             rootalpha = childvalue;
             alphabetamove = move;
         }
-        if(rootalpha >= rootbeta) break;
+        //if(rootalpha >= rootbeta) break;
     }
 
     return alphabetamove;
