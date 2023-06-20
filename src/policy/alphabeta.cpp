@@ -62,7 +62,7 @@ Move Alphabeta::get_move(State* state, int depth)
 
     for(auto move: state->legal_actions)
     {   
-        int childvalue = submission(state->next_state(move), depth-1, -INT_MAX+1, INT_MAX-1, MINimize, state->player);
+        int childvalue = alphabeta(state->next_state(move), depth-1, -INT_MAX+1, INT_MAX-1, MINimize, state->player);
         if(childvalue > rootalpha)
         {
             rootalpha = childvalue;
