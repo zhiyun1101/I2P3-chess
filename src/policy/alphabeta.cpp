@@ -21,10 +21,13 @@ enum minimaxop
 
 int alphabeta(State* root, int depth, int alpha, int beta, int op, int selfplayer)
 {
-    if(root->game_state == WIN)
+    if(root->player == selfplayer && root->game_state == WIN)
     {
-        if(root->player == selfplayer) return INT_MAX; 
-        else return INT_MIN; //敵方獲勝的state
+        return INT_MAX; 
+    }
+    if(root->player != selfplayer && root->game_state == WIN)
+    {
+        return INT_MIN; 
     }
 
     if(!root->legal_actions.size()) root->get_legal_actions();
@@ -61,7 +64,7 @@ Move Alphabeta::get_move(State* state, int depth)
     int rootbeta = INT_MAX; 
 
     if(!state->legal_actions.size()) state->get_legal_actions();
-    
+
     for(auto move: state->legal_actions)
     {   
         int childvalue = alphabeta(state->next_state(move), depth-1, INT_MIN, INT_MAX, MINimize, state->player);
